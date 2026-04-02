@@ -35,7 +35,6 @@ function reveal() {
             // Adding a class for fade-in effect via CSS
             reveals[i].style.opacity = "1";
             reveals[i].style.transform = "translateY(0)";
-            reveals[i].style.transition = "all 0.8s ease";
         } else {
             // Optional: reset animation when scrolling up
             // reveals[i].classList.remove('active');
@@ -56,32 +55,32 @@ document.querySelectorAll('.section-title, .about-content, .skill-card, .project
 
 
 // Form Validation
-const contactForm = document.getElementById('contactForm');
+// const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', function (e) {
-    e.preventDefault();
+// contactForm.addEventListener('submit', function (e) {
+//     e.preventDefault();
 
-    // Simple validation
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
+//     // Simple validation
+//     const name = document.getElementById('name').value;
+//     const email = document.getElementById('email').value;
+//     const message = document.getElementById('message').value;
 
-    if (name && email && message) {
-        if (validateEmail(email)) {
-            alert(`Thank you, ${name}! Your message has been sent successfully.`);
-            contactForm.reset();
-        } else {
-            alert('Please enter a valid email address.');
-        }
-    } else {
-        alert('Please fill in all fields.');
-    }
-});
+//     if (name && email && message) {
+//         if (validateEmail(email)) {
+//             alert(`Thank you, ${name}! Your message has been sent successfully.`);
+//             contactForm.reset();
+//         } else {
+//             alert('Please enter a valid email address.');
+//         }
+//     } else {
+//         alert('Please fill in all fields.');
+//     }
+// });
 
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-}
+// function validateEmail(email) {
+//     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     return re.test(String(email).toLowerCase());
+// }
 
 // Smooth scrolling for anchor links (polyfill support not strictly needed for modern browsers but good practice)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -105,3 +104,28 @@ window.addEventListener("load", () => {
     document.querySelector(".bootstrap").style.width = "85%";
 });
 
+
+// EMAIL JS
+
+(function(){
+    emailjs.init("_q129hLhimJBHvGaI");
+})();
+
+const form = document.getElementById("contact-form");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm(
+        "service_3iprvz8",
+        "template_q6nre5m",
+        form
+    )
+    .then(() => {
+        alert("Message Sent Successfully ✅");
+        form.reset();
+    })
+    .catch((error) => {
+        alert("Failed ❌: " + JSON.stringify(error));
+    });
+});
